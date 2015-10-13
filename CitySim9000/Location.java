@@ -40,11 +40,16 @@ public class Location {
     // generate a random index based on the count
     int directionIndex = rand.nextInt(optionCount);
 
-    // get the direction to move to
-    String direction = this.directionsArray.get(directionIndex);
+    String direction = "";
 
     Location nextLocation = null;
     String street = null;
+
+    // make sure we can move somewhere from here
+    // and get the direction to move to
+    if(optionCount > 0){
+      direction = this.directionsArray.get(directionIndex);
+    }
 
     // get the actual location and street to travel on for the next location
     // based on the direction returned
@@ -63,9 +68,13 @@ public class Location {
       street = this.westStreet;
     }
 
-    // print driver's travel route
-    System.out.println("Driver " + driver + " heading from " + this.name + " to " + nextLocation.name + " via " + street);
-    // retuen new current location
+    // make sure a new location was selected
+    if(nextLocation != null){
+      // print driver's travel route
+      System.out.println("Driver " + driver + " heading from " + this.name + " to " + nextLocation.name + " via " + street);
+    }
+
+    // return new current location
     return nextLocation;
   }
 
@@ -100,5 +109,10 @@ public class Location {
     this.westLocation = loc;
     this.westStreet = street;
     this.directionsArray.add("west");
+  }
+
+  // returns the name of this location
+  public String getLocationName(){
+    return this.name;
   }
 }
